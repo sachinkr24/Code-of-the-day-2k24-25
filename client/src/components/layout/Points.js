@@ -9,7 +9,7 @@ const Points = () => {
     document.title = "Points";
     const fetchData = async () => {
       try {
-        const res = await axios.get('https://cod2k24-mnnit.onrender.com/api/points');
+        const res = await axios.get('https://code-of-the-day-2k24-25-backend.onrender.com/api/points');
         setData(res.data || []);
       } catch (error) {
         console.error('Error fetching data:', error);

@@ -16,7 +16,7 @@ const FormLink = () => {
   useEffect(() => {
     const fetchLink = async () => {
       try {
-        const res = await axios.get('https://cod2k24-mnnit.onrender.com/api/admin/form');
+        const res = await axios.get('https://code-of-the-day-2k24-25-backend.onrender.com/api/admin/form');
         setLink(res.data);
       } catch (error) {
         console.log(error.msg);
@@ -39,7 +39,7 @@ const FormLink = () => {
     const body = JSON.stringify({ day, formLink });
     try {
       console.log(body);
-      await axios.post('https://cod2k24-mnnit.onrender.com/api/admin/form', body, config);
+      await axios.post('https://code-of-the-day-2k24-25-backend.onrender.com/api/admin/form', body, config);
     } catch (err) {
       console.log('dfasdfasdfasdfsdf');
       

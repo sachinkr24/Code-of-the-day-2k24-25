@@ -20,7 +20,7 @@ export const loadUser = () => async (dispatch) => {
   }
 
   try {
-    const res = await axios.get("https://cod2k24-mnnit.onrender.com/api/auth");
+    const res = await axios.get("https://code-of-the-day-2k24-25-backend.onrender.com/api/auth");
     dispatch({
       type: USER_LOADED,
       payload: res.data,
@@ -77,7 +77,7 @@ export const register =
     try {
       console.log(body);
       const res = await axios.post(
-        "https://cod2k24-mnnit.onrender.com/api/users",
+        "https://code-of-the-day-2k24-25-backend.onrender.com/api/users",
         body,
         config
       );
@@ -109,7 +109,7 @@ export const login = (teamName, password) => async (dispatch) => {
   const body = JSON.stringify({ teamName, password });
   try {
     const res = await axios.post(
-      "https://cod2k24-mnnit.onrender.com/api/auth",
+      "https://code-of-the-day-2k24-25-backend.onrender.com/api/auth",
       body,
       config
     );

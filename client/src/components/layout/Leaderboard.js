@@ -10,7 +10,7 @@ const Leaderboard = () => {
     document.title = "Leaderboard";
     const fetchData = async () => {
       try {
-        const res = await axios.get('https://cod2k24-mnnit.onrender.com/api/points/leaderboard');
+        const res = await axios.get('https://code-of-the-day-2k24-25-backend.onrender.com/api/points/leaderboard');
         setData(res.data || []);
       } catch (error) {
         console.error('Error fetching data:', error);

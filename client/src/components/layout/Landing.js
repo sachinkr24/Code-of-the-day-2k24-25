@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Landing = () => {
   useEffect(() => {
-    document.title = "COD 2k24";
+    document.title = "COD 2k24-25";
   }, []);
   return (
     <section className="h-screen bg-gradient-to-b from-black to-gray-800 flex justify-center items-center" >
