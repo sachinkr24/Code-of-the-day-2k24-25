@@ -47,7 +47,7 @@ function Navbar({ auth: { isAuthenticated, loading, isAdmin }, logout }) {
           <div id="logo" className="">
           
           <div className="text-white text-3xl flex items-center">
-  <img src={logo} style={{  height: '70px', marginRight: '4px' }} alt="Logo" />
+  <img src={logo} style={{  height: '60px', marginRight: '8px' }} alt="Logo" />
   Code Of The Day
 </div>
 </div>

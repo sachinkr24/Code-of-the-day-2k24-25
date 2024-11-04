@@ -10,6 +10,9 @@ const Leaderboard = () => {
     document.title = "Leaderboard";
     const fetchData = async () => {
       try {
+        // Inform the user that data may take a moment to load
+        console.log("Fetching leaderboard data. Please wait a few seconds...");
+        
         const res = await axios.get('https://code-of-the-day-2k24-25-backend.onrender.com/api/points/leaderboard');
         setData(res.data || []);
       } catch (error) {
@@ -26,7 +29,7 @@ const Leaderboard = () => {
     ? data.filter((point) => point.teamName && point.teamName.toLowerCase().includes(teamFilter.toLowerCase()))
     : data;
 
-  if (loading) return <div className="text-center py-8 text-xl">Loading...</div>;
+  if (loading) return <div className="text-center py-8 text-xl">Loading... It may take a moment to load; please wait a few seconds.</div>;
 
   return (
     <div className="container mx-auto px-4 pt-24 pb-8 flex justify-center">
