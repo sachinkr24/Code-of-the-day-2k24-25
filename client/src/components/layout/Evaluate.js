@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { connect } from "react-redux";
@@ -7,16 +8,13 @@ const Evaluate = () => {
   useEffect(() => {
     document.title = "Evaluate";
   }, []);
-
   const [formData, setFormData] = useState({
     teamName: "",
     day: "",
     points: "",
   });
 
-  const [loading, setLoading] = useState(false); // Loading state
-  const [error, setError] = useState(null); // Error state
-
+  const [loading, setLoading] = useState(false);
   const { teamName, day, points } = formData;
 
   const onChange = (e) =>
@@ -24,16 +22,20 @@ const Evaluate = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    setLoading(true); // Set loading to true when submission starts
-    setError(null); // Clear previous errors
-
+    setLoading(true);
+    console.log("here is the fp");
     const config = {
       headers: {
         "Content-Type": "application/json",
       },
     };
     const body = JSON.stringify({ teamName, day, points });
-
+    setFormData({
+      teamName: "",
+      day: "",
+      points: "",
+    });
+    alert("Points Updated Successfully");
     try {
       console.log(body);
       const res = await axios.post(
@@ -42,11 +44,12 @@ const Evaluate = () => {
         config
       );
       console.log(res);
-      alert("Points Updated Successfully");
     } catch (err) {
-      console.error("Error occurred:", err);
-      setError(err.response?.data?.errors || "Unknown error occurred. Please try again later!");
-    } finally {
+      console.log("Unknown error ocurred. Please try again later!");
+      console.log(err.msg);
+    }
+
+    finally {
       setLoading(false); // Set loading to false after request is complete
       setFormData({
         teamName: "",
@@ -55,14 +58,13 @@ const Evaluate = () => {
       });
     }
   };
-
   const fixedInputClass =
     "rounded-md appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm";
 
   return (
     <div className="min-h-screen pt-24 flex justify-center items-center">
       <form
-        className="mt-8 space-y-6 mx-3 w-full md:w-1/2 p-4 rounded-md shadow-md shadow-black"
+        className="mt-8 space-y-6 mx-3 w-full md:w-1/2  p-4 rounded-md shadow-md shadow-black"
         onSubmit={(e) => onSubmit(e)}
       >
         <div className="">
@@ -104,12 +106,7 @@ const Evaluate = () => {
           </div>
         </div>
 
-        {error && (
-          <p className="text-center text-red-500">
-            {Array.isArray(error) ? error.join(", ") : error}
-          </p>
-        )}
-
+        {/* //Button */}
         <div className="text-center">
           {loading ? (
             <p className="text-gray-600">Submitting...</p>
