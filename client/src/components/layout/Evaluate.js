@@ -7,11 +7,15 @@ const Evaluate = () => {
   useEffect(() => {
     document.title = "Evaluate";
   }, []);
+
   const [formData, setFormData] = useState({
     teamName: "",
     day: "",
     points: "",
   });
+
+  const [loading, setLoading] = useState(false); // Loading state
+  const [error, setError] = useState(null); // Error state
 
   const { teamName, day, points } = formData;
 
@@ -20,19 +24,16 @@ const Evaluate = () => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    console.log("here is the fp");
+    setLoading(true); // Set loading to true when submission starts
+    setError(null); // Clear previous errors
+
     const config = {
       headers: {
         "Content-Type": "application/json",
       },
     };
     const body = JSON.stringify({ teamName, day, points });
-    setFormData({
-      teamName: "",
-      day: "",
-      points: "",
-    });
-    alert("Points Updated Successfully");
+
     try {
       console.log(body);
       const res = await axios.post(
@@ -41,18 +42,27 @@ const Evaluate = () => {
         config
       );
       console.log(res);
+      alert("Points Updated Successfully");
     } catch (err) {
-      console.log("Unknown error ocurred. Please try again later!");
-      console.log(err.msg);
+      console.error("Error occurred:", err);
+      setError(err.response?.data?.errors || "Unknown error occurred. Please try again later!");
+    } finally {
+      setLoading(false); // Set loading to false after request is complete
+      setFormData({
+        teamName: "",
+        day: "",
+        points: "",
+      });
     }
   };
+
   const fixedInputClass =
     "rounded-md appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-purple-500 focus:border-purple-500 focus:z-10 sm:text-sm";
 
   return (
     <div className="min-h-screen pt-24 flex justify-center items-center">
       <form
-        className="mt-8 space-y-6 mx-3 w-full md:w-1/2  p-4 rounded-md shadow-md shadow-black"
+        className="mt-8 space-y-6 mx-3 w-full md:w-1/2 p-4 rounded-md shadow-md shadow-black"
         onSubmit={(e) => onSubmit(e)}
       >
         <div className="">
@@ -94,19 +104,25 @@ const Evaluate = () => {
           </div>
         </div>
 
-        {/* //Button */}
-        <>
-          {
+        {error && (
+          <p className="text-center text-red-500">
+            {Array.isArray(error) ? error.join(", ") : error}
+          </p>
+        )}
+
+        <div className="text-center">
+          {loading ? (
+            <p className="text-gray-600">Submitting...</p>
+          ) : (
             <button
               type="submit"
               className="flex justify-center w-1/2 mx-auto py-2 px-4 text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 mt-10"
               value="Evaluate"
             >
-              {" "}
               Submit
             </button>
-          }
-        </>
+          )}
+        </div>
       </form>
     </div>
   );

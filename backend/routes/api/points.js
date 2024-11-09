@@ -9,6 +9,7 @@ const auth = require("../../middleware/auth");
 const config = require("config");
 const TotalPoints = require("../../models/TotalPoints");
 
+
 router.get("/", auth, async (req, res) => {
   try {
     console.log(req.team.id);
@@ -23,12 +24,34 @@ router.get("/", auth, async (req, res) => {
   }
 });
 
+
+
 router.get("/leaderboard", auth, async (req, res) => {
   try {
-    console.log("sdfasd");
-    const result = await TotalPoints.find().sort({ points: -1 });
-    console.log(result);
-    res.json(result);
+    const result = await TotalPoints.find().lean();
+
+    // Apply robust sorting to handle any potential string values in points
+    const sortedResult = result.sort((a, b) => Number(b.points) - Number(a.points));
+
+    // Assign ranks based on sorted order
+    let rank = 1;
+    let previousPoints = null;
+    
+    const leaderboard = sortedResult.map((team, index) => {
+      if (team.points !== previousPoints) {
+        rank = index + 1;
+      }
+      previousPoints = team.points;
+
+      return {
+        rank,
+        teamName: team.teamName,
+        points: team.points,
+      };
+    });
+
+    console.log(leaderboard);
+    res.json(leaderboard);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server Error");
