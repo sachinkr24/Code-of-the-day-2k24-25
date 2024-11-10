@@ -32,7 +32,7 @@ const Evaluate = () => {
     try {
       console.log(body);
       const res = await axios.post(
-        "https://https://code-of-the-day-2k24-25-backend.onrender.com/api/admin",
+        "https://code-of-the-day-2k24-25-1.onrender.com/api/admin",
         body,
         config
       );
