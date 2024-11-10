@@ -78,7 +78,7 @@ const Dashboard = ({ link }) => {
           Submit Your Solution
         </p>
         <a
-  href="https://forms.gle/Dd74H2RN8nUy7fug9"
+  href="https://forms.gle/d6epZos7rxaAg6Wy5"
   
   className="inline-block w-full md:w-1/2"
 >

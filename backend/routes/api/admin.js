@@ -10,6 +10,7 @@ const auth = require("../../middleware/auth");
 const config = require("config");
 const TotalPoints = require("../../models/TotalPoints");
 const FormLink = require("../../models/FormLink");
+
 router.post("/", auth, async (req, res) => {
   const { teamName, day, points } = req.body;
   try {
@@ -50,6 +51,7 @@ router.post("/", auth, async (req, res) => {
     res.status(500).send("Server Error");
   }
 });
+
 router.post("/form", auth, async (req, res) => {
   const { day, formLink } = req.body;
   try {
@@ -64,6 +66,7 @@ router.post("/form", auth, async (req, res) => {
     console.log(error.msg);
   }
 });
+
 router.get("/form", auth, async (req, res) => {
   try {
     let result = await FormLink.find();
